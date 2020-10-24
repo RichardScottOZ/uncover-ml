@@ -71,7 +71,7 @@ The ``learning`` block specifies the algorithm/model to train:
 
     - ``identity``: identity transform - does nothing to the data. This
       is the default option if ``target_transform`` is not provided.
-    - ``standardise``: applies a standardisation transform.
+    - ``standardise``: applies a standarisation transform.
     - ``sqrt``: applies a square root transform.
     - ``log``: applies a log10 transform.
     - ``logistic``: applies a logistic transform.
@@ -98,7 +98,7 @@ training and prediction:
   transforms can be applied to each set of features specified.
 
     - ``centre``: applies a centre transform (demeans the data).
-    - ``standardise``: applies a standardisation transform.
+    - ``standardise``: applies a standarisation transform.
     - ``log``: applies a log10 transform.
     - ``sqrt``: applies a square root transform.
     - ``whiten``: applies a Whiten transform.
@@ -185,7 +185,7 @@ For learning, these are:
   and the target value for a given point. This is before any scaling or
   transforms are applied.
 - ``rawcovariates_mask.csv``: a table representing the mask for each
-  point, i.e. which covariates are missing from which coordinates.
+  point, i.e. which coviarates are missing from which coordinates.
 - ``transformed_targets.csv``: a table containing untransformed target
   values in the first column and the transformed value in the other 
   column.
@@ -317,7 +317,7 @@ in your config file. The usual parameters for learning must be provided
 - ``out_of_sample``: out-of-sample validation parameters
 
   - ``percentage``: float between 0 and 1, the percentage of targets
-    to withhold from the training data to be used for post-learning
+    to withold from the training data to be used for post-learning
     validation.
   - ``shapefile``: path to a shapefile containing targets to be used
     in out-of-sample validation. 
@@ -337,7 +337,7 @@ in your config file. The usual parameters for learning must be provided
   - ``folds``: the number of folds to split training data into.
   - ``random_seed``: an integer used as the seed for the random number
     generator that splits folds. Using the same seed will produce 
-    deterministic fold splits.
+    determinstic fold splits.
 
 Running
 ~~~~~~~
@@ -357,7 +357,7 @@ Once complete, validation results will be in the output directory:
   metric for k-fold.
 - ``featureranks.json``: Dictionaries containing feature rank results.
   The ``ranks`` dictionary presents the most important feature by its
-  impact on each metric (which feature caused the most degradation of 
+  impact on each metric (which feature caused the most degredation of 
   the metric when excluded from training). The ``scores`` dictionary
   contains the corresponding value for each rank.
 - ``permutation_importance.csv``: The permutation importance results.
@@ -411,7 +411,7 @@ the Y-axis is the score of that metric and each group is a feature
 .. image:: sirsam_Na_randomforest_featureranks.png
 
 The other plot is a series of curves. Each curve represents a metric,
-with scores on the Y-axis and covariates on the X-axis. Each inflection
+with scores on the Y-axis and covarites on the X-axis. Each inflection
 represents what happens to the score when the corresponding covariate
 is removed from the model:
 
@@ -455,12 +455,12 @@ To generate a real vs. prediction plot, ``k-fold`` must be enabled
 under the ``validation`` block of the config, and ``plot_real_vs_pred``
 must be set to ``True``.
 
-.. _Multiprocessing and Partitioning:
+.. _Multiprocessing and Paritioning:
 
 Multiprocessing and Partitioning
 --------------------------------
 
-UncoverML supports parallelization using MPI and also supports
+UncoverML supports parllelization using MPI and also supports
 partitioning for large datasets. When and how to use these depends
 on the task being performed.
 
@@ -543,12 +543,12 @@ performed with different combinations of parameters.
 .. note::
 
     Only some models are compatible with optimisation. This is because
-    models must be structured in a way compatible with scikit-learn's
+    models must be structued in a way compatible with scikit-learn's
     GridSearchCV. This involves:
 
     - having all arguments explicitly listed in the ``__init__`` signature (no varargs)
     - having the expected functions (``fit``, ``predict``, etc.)
-    - implementing the ``get_params`` and ``set_params`` functions 
+    - implemeting the ``get_params`` and ``set_params`` functions 
       defined by `Base Estimator <https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html>`_
 
     Optimisable models are listed in the :ref:`models section <optimisable-models>`.
@@ -579,9 +579,9 @@ An example config for performing optimisation on
 - ``scorers``: a list of metrics to consider when ranking parameter
   combinations. 
 
-  - ``r2``, ``expvar``, ``smse`` and ``lins_ccc`` are the available
+  - ``r2``, ``expar``, ``smse`` and ``lins_ccc`` are the availble
     regression model parameters. 
-  - ``accuracy``, ``log_loss`` and ``auc`` are applicable to classifiers.
+  - ``accuracy``, ``log_loss`` and ``auc`` are applicable to classifers.
 
 - ``hyperparameters``: contains lists of values for various algorithm
   parameters - view the documentation for the algorithm to know 
@@ -619,7 +619,7 @@ The idea behind shiftmap is to generate 'dummy' targets, equal in number
 to the provided training targets. These dummy targets are distributed
 randomly across the feature space. 
 
-The two sets of targets (dummy and real) are labeled 'query' and 
+The two sets of targets (dummy and real) are labelled 'query' and 
 'training' respectively. A logistic classifier is then trained on these
 targets and classification maps are generated.
 
@@ -627,7 +627,7 @@ Areas where the classifier can't distinguish between the two classes
 (e.g. 0.4 - 0.6 certainty for one or the other class) means the 
 covariate data in that area has a similar distribution to the provided
 training data. In theory, these are areas where the model can be 
-extrapolated and will perform well, as the distribution is similar to
+extrapolated and will perform well, as the distrubtion is similar to
 the provided training data. Areas with a strong covariate shift 
 (e.g. 0 - 0.4, 0.6 - 1 certainty for either class) may not be suitable
 for extrapolating the model due to differences in distribution between
@@ -648,7 +648,7 @@ Covariate shiftmaps will be written to the output directory:
 - ``shiftmap_generated_points.csv``: a table of the randomly generated
   points which can be used for validation and debugging.
 - ``shiftmap_query_0.tif``: a map showing the likelihood of each pixel
-  belonging to the 'query' class. Areas of uncertainty (0.4 - 0.6 for
+  beloning to the 'query' class. Areas of uncertainty (0.4 - 0.6 for
   example) are areas with similar distributions to the training data.
 - ``shiftmap_training_1.tif``: same as above but inverted; shows the 
   likelihood of each pixel belonging to the training class.
@@ -839,7 +839,7 @@ predicting the k-means model.
     oversample_factor: 5
 
 - ``file``: path to shapefile containing labels. This is optional. If provided
-  then semi-supervised clustering is performed, other clustering is
+  then semi-supervised clustering is performed, other clutering is
   unsupervised.
 - ``property``: the name of the class label property in the shapefile. Only
   required if a shapefile has been provided and semi-supervised 
@@ -1041,7 +1041,7 @@ parameters and an ``output`` block specifying a directory.
 
       If ``percentile`` then the bin edges will be the Nth percentile
       value of the target data, with the percentiles being the result
-      of linearly spacing the number of bin edges between 0 to 1.
+      of linearally spacing the number of bin edges between 0 to 1.
 
       E.g., if bins is 3, then the bins will cover from 0 to 33rd percentile,
       33rd to 66th percentile and 66th to 100th percentile.
@@ -1088,4 +1088,3 @@ use output redirection:
 .. code:: bash
 
     uncoverml covdiag /path/to/covariate/directory >> output.txt
-
