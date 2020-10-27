@@ -10,6 +10,7 @@ Quickstart
 
 Before you start, make sure your system has the following packages installed,
 
+#these are necessary libraries
 - gdal (libgdal-dev)
 - openmpi
 - hdf5
